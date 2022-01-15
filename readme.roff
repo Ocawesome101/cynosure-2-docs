@@ -1,0 +1,182 @@
+.ce
+** Cynosure 2 **
+
+.in 4
+This tree contains a set of documentation for the Cynosure kernel's second iteration.
+
+.ce
+** Summary **
+
+Cynosure 2 is the second iteration of the Cynosure kernel.  It features a more posix-like kernel API, with even stricter distinctions between kernel and user space.  It requires that all filesystem drivers have permissions support, and emulates this feature on managed filesystems where it is not present.
+
+The Cynosure 2 kernel differentiates itself from the original Cynosure, and most other Unix-likes, by abstracting everything as URL rather than as a file (see `URLs.txt').
+ 
+.ce
+** Build Configuration **
+
+.in 4
+This section describes the process of configuring Cynosure 2's build script.
+
+Configuration entries are read from .config, with each line in the following format:
+
+.in 8
+KEY=VALUE # comment
+
+.in 4
+There is a default configuration in .defconfig in the source tree.
+
+All available configuration options, each of which is paired with a description, are listed here:
+
+.in 6
+COMPONENT_3DPRINTER=[yn]
+.in 8
+Whether to enable kernel support for the 3D Printer component.
+
+.in 6
+COMPONENT_ACCESSPOINT=[yn]
+.in 8
+Whether to enable kernel support for the access_point component.
+
+.in 6
+COMPONENT_CHUNKLOADER=[yn]
+.in 8
+Whether to enable kernel support for the chunkloader component.
+
+.in 6
+COMPONENT_CRAFTING=[yn]
+
+COMPONENT_DATACARD=[yn]
+.in 8
+Whether to use the data card for cryptographic operations (e.g. password hashing) rather than a Lua implementation.  This reduces kernel size slightly but the resulting kernel will not boot unless a data card is present.
+
+.in 6
+COMPONENT_DATABASE=[yn]
+COMPONENT_DEBUG=[yn]
+
+COMPONENT_DRIVE=[yn]
+.in 8
+Whether to enable kernel support for registering drive components as block devices.  This is necessary when FS_SFS=y.
+
+.in 6
+COMPONENT_EEPROM=[yn]
+.br
+COMPONENT_EXPERIENCE=[yn]
+.br
+COMPONENT_FILESYSTEM=[yn]
+.br
+COMPONENT_GENERATOR=[yn]
+.br
+COMPONENT_GEOLYZER=[yn]
+.br
+COMPONENT_HOLOGRAM=[yn]
+.br
+COMPONENT_INTERNET=[yn]
+.br
+COMPONENT_INVENTORYCONTROLLER=[yn]
+.br
+COMPONENT_LEASH=[yn]
+.br
+COMPONENT_MICROCONTROLLER=[yn]
+.in 8
+Whether to enable kernel support for the microcontroller component.
+
+.in 6
+COMPONENT_MODEM=[yn]
+.in 8
+Whether to enable kernel support for the modem component.  This by itself does not do much - but all of the MODEM_* options require it.
+
+.in 6
+COMPONENT_MOTIONSENSOR=[yn]
+.br
+COMPONENT_NAVIGATION=[yn]
+.br
+COMPONENT_NETSPLITTER=[yn]
+.br
+COMPONENT_PISTON=[yn]
+.br
+COMPONENT_REDSTONE=[yn]
+.in 8
+Whether to enable redstone card support.
+
+.in 6
+COMPONENT_ROBOT=[yn]
+.in 8
+Whether to enable kernel support for the robot component.  This by itself does not do anything - but all of the ROBOT_* options require it.
+
+.in 6
+COMPONENT_SIGN=[yn]
+.br
+COMPONENT_TANKCONTROLLER=[yn]
+.br
+COMPONENT_TRACTORBEAM=[yn]
+.br
+COMPONENT_TRANSPOSER=[yn]
+.br
+COMPONENT_TUNNEL=[yn]
+.br
+COMPONENT_WORLDSENSOR=[yn]
+
+.in 6
+COMPONENT_CARDDOCK=[yn]
+.in 8
+Whether to enable kernel support for automatically registering components in Computeronics card docks.  This option is not very expensive for code size.
+
+.in 6
+PREEMPT_MODE=<good|fast|none>
+.in 8
+How often to insert forced yields into loaded Lua code:
+.in 10
+none - don't insert any, disable this functionality
+fast - force a yield every 0.1s
+good - force a yield every time the yield function is called
+
+.in 6
+EXEC_CLE=[yn]
+.in 8
+Whether to enable support for the Cynosure Lua Executable format.  It is highly recommended that you enable this option.
+
+.in 6
+EXEC_SHEBANG=[yn]
+.in 8
+Whether to enable kernel support for scripts starting with a shebang (#!/path/to/interpreter).
+
+.in 6
+FS_SFS=[yn]
+.in 8
+Enable or disable the Simple File System driver.  When this option is enabled, the resulting kernel will be able to mount and interact with SFS-formatted volumes.  See fs/simplefs.txt for details on the filesystem.
+
+.in 6
+FS_MANAGED=[yn]
+.in 8
+Enabled or disable the managed filesystem driver.
+
+.in 6
+SCHEME_MISC=[yn]
+.in 8
+Whether the kernel should support defining schemes from userspace.  When this option is enabled, user programs can register a scheme through the user: scheme.
+
+.in 6
+SCHEME_EXEC=[yn]
+.in 8
+Whether the kernel should support defining custom executable formats from userspace.  When this option is enabled, user programs can register custom executable format foo by writing specially formatted data to exec://foo, and read all defined formats by listing the files under exec:/.
+
+.in 6
+SCHEME_HTTP=[yn]
+.in 8
+Whether to include the http: and https: schemes.  These use OpenComputers' Internet Card component to open a HTTP connection.
+
+.in 6
+SCHEME_TCP=[yn]
+.in 8
+Whether to include the tcp: scheme.  This uses the Internet Card to maintain a TCP socket.
+
+.in 6
+SCHEME_COMPONENT=[yn]
+.in 8
+Whether to include the component: scheme.  This allows user programs to access raw components by first opening a component under this scheme, then using the invoke() system call with the file descriptor returned from that operation.
+
+.in 6
+LANGUAGE=<english|...>
+.in 8
+Sets the language to use for kernel error messages.
+.zY
