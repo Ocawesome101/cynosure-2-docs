@@ -73,7 +73,7 @@
       COMPONENT_WORLDSENSOR=[yn]
 
       COMPONENT_CARDDOCK=[yn]
-        Whether to enable kernel support for automatically registering components in Computeronics card docks.  This option is not very expensive.
+        Whether to enable kernel support for automatically registering components in Computeronics card docks.  This option is not very expensive for code size.
 
       PREEMPT_MODE=<good|fast|none>
         How often to insert forced yields into loaded Lua code:
@@ -88,7 +88,7 @@
         Whether to enable kernel support for scripts starting with a shebang (#!/path/to/interpreter).
 
       FS_SFS=[yn]
-        Enable or disable the Simple File System driver.  When this option is enabled
+        Enable or disable the Simple File System driver.  When this option is enabled, the resulting kernel will be able to mount and interact with SFS-formatted volumes.  See fs/simplefs.txt for details on the filesystem.
 
       FS_MANAGED=[yn]
         Enabled or disable the managed filesystem driver.
@@ -104,3 +104,9 @@
 
       SCHEME_TCP=[yn]
         Whether to include the tcp: scheme.  This uses the Internet Card to maintain a TCP socket.
+
+      SCHEME_COMPONENT=[yn]
+        Whether to include the component: scheme.  This allows user programs to access raw components by first opening a component under this scheme, then using the invoke() system call with the file descriptor returned from that operation.
+
+      LANGUAGE=<english|...>
+        Sets the language to use for kernel error messages.

@@ -1,0 +1,58 @@
+                              ** System Calls **
+
+    This document describes all the Cynosure 2 system calls and their functions.
+
+
+    open(url:string, mode:number): fd:number
+      Tries to open the provided URL.  On success, returns a file descriptor.  The mode argument should be an OR of the following values for specifying how to open the file:
+
+          MODE_RDONLY = 0x2000
+          MODE_WRONLY = 0x1000
+          MODE_RDWR   = 0x800
+          MODE_APPEND = 0x400
+          MODE_CREAT  = 0x200
+
+      and the following arguments for file permissions if MODE_CREAT is set:
+
+          PERM_UR = 0x100
+          PERM_UW = 0x80
+          PERM_UX = 0x40
+          PERM_GR = 0x20
+          PERM_GW = 0x10
+          PERM_GX = 0x8
+          PERM_OR = 0x4
+          PERM_OW = 0x2
+          PERM_OX = 0x1
+
+    opendir(url:string): dirfd:number
+      Opens a directory for reading.  Use readdir() to read file names from this descriptor and close() to close it.
+
+    read(fd:number, n:number): data:string
+      Reads up to n bytes of data from the given file descriptor.
+
+    readdir(dirfd:number): dirent:table
+      Reads a directory entry from a directory and returns:
+
+          {
+            inode = number,
+            name = string
+          }
+
+    write(fd:number, data:string)
+      Writes the provided data to the given file descriptor.
+
+    seek(fd:number, whence:string, offset:number]): offset:number
+      Changes the read/write offset for the provided file descriptor.  Returns the new offset.
+
+    close(fd:number)
+      Closes an open file descriptor.
+
+    invoke(fd:number, method:string, ...): ...
+      Makes a component call using the specified file descriptor.  Otherwise this behaves exactly like the component.invoke function.
+
+
+    fork(): pid:number
+      A rather fragile system call.  "Forks" the current process;  the spawned child process will only execute code until the end of the block from which fork() is called.  This fork() requires direct access to the code from which it is called, and therefore must be called from code stored in and executed from a file.  Because of this, it will not work from code that has been loaded with load(), unless the chunk name is correct.  fork() returns the PID of the child process to the parent process, 0 to the child process, and nil with an error message if it fails.
+
+    execve(file:string, args:table[, env:table])
+      Replaces the current process's coroutine with the result of loading the file argument.  Will pass the provided args and set the environment to env.
