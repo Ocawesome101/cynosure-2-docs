@@ -1,0 +1,38 @@
+\" This document is formatted with the GNU Roff formatting scheme.
+\" View with "groff -T ascii"
+.color
+.defcolor y rgb #FFFF00
+.defcolor b rgb #0000FF
+.ce
+\fBManaged File Systems\fR
+
+.in 4
+Cynosure 2's managed file system driver provides a shallow layer of abstraction over OpenComputers' filesystem component.  This layer provides support for file permissions and modes.
+
+.in 4
+These file attributes are stored as the file name, prefixed with a \fB.\fR and postfixed with a \fB.attr\fR - such that the attributes for the following file:
+
+.in 8
+\fB\my/bin/ls\m[default]\fR
+
+.in 4
+are stored at:
+
+.in 8
+\fB\my/bin/.ls.attr\m[default]\fR
+
+.in 4
+and the attributes for the following file:
+
+.in 8
+\fB\my/root/.shrc\m[default]\fR
+
+.in 4
+are stored at:
+
+.in 8
+\fB\my/root/..shrc.attr\m[default]\fR
+
+
+.in 4
+The filesystem driver disallows direct modification of these files.  They may only be changed with the \fB\mbsetattr\m[default]\fR, \fB\mbchmod\m[default]\fR, and \fB\mbchown\m[default]\fR system calls.  They may only be accessed with the \fB\mbstat\m[default]\fR system call.

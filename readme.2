@@ -1,182 +1,199 @@
+\" This document is formatted with the GNU Roff formatting scheme.
+\" View with "groff -T ascii readme.2"
+.color
+.defcolor r rgb #FF0000
+.defcolor g rgb #00FF00
+.defcolor b rgb #0000FF
+.defcolor m rgb #FF00FF
 .ce
-** Cynosure 2 **
+\fBCynosure 2\fR
 
 .in 4
 This tree contains a set of documentation for the Cynosure kernel's second iteration.
 
 .ce
-** Summary **
+\fBSummary\fR
 
+.in 4
 Cynosure 2 is the second iteration of the Cynosure kernel.  It features a more posix-like kernel API, with even stricter distinctions between kernel and user space.  It requires that all filesystem drivers have permissions support, and emulates this feature on managed filesystems where it is not present.
 
+.in 4
 The Cynosure 2 kernel differentiates itself from the original Cynosure, and most other Unix-likes, by abstracting everything as URL rather than as a file (see `URLs.txt').
  
 .ce
-** Build Configuration **
+\fBBuild Configuration\fR
 
 .in 4
 This section describes the process of configuring Cynosure 2's build script.
 
+.in 4
 Configuration entries are read from .config, with each line in the following format:
 
 .in 8
-KEY=VALUE # comment
+\fBKEY=VALUE \mb# comment\m[default]\fR
 
 .in 4
 There is a default configuration in .defconfig in the source tree.
 
+.in 4
 All available configuration options, each of which is paired with a description, are listed here:
 
 .in 6
-COMPONENT_3DPRINTER=[yn]
+\fBCOMPONENT_3DPRINTER\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for the 3D Printer component.
 
 .in 6
-COMPONENT_ACCESSPOINT=[yn]
+\fBCOMPONENT_ACCESSPOINT\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for the access_point component.
 
 .in 6
-COMPONENT_CHUNKLOADER=[yn]
+\fBCOMPONENT_CHUNKLOADER\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for the chunkloader component.
 
 .in 6
-COMPONENT_CRAFTING=[yn]
+\fBCOMPONENT_CRAFTING\fR=[\fByn\fR]
+.in 6
 
-COMPONENT_DATACARD=[yn]
+.in 6
+\fBCOMPONENT_DATACARD\fR=[\fByn\fR]
 .in 8
 Whether to use the data card for cryptographic operations (e.g. password hashing) rather than a Lua implementation.  This reduces kernel size slightly but the resulting kernel will not boot unless a data card is present.
 
 .in 6
-COMPONENT_DATABASE=[yn]
-COMPONENT_DEBUG=[yn]
-
-COMPONENT_DRIVE=[yn]
-.in 8
-Whether to enable kernel support for registering drive components as block devices.  This is necessary when FS_SFS=y.
+\fBCOMPONENT_DATABASE\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_DEBUG\fR=[\fByn\fR]
 
 .in 6
-COMPONENT_EEPROM=[yn]
-.br
-COMPONENT_EXPERIENCE=[yn]
-.br
-COMPONENT_FILESYSTEM=[yn]
-.br
-COMPONENT_GENERATOR=[yn]
-.br
-COMPONENT_GEOLYZER=[yn]
-.br
-COMPONENT_HOLOGRAM=[yn]
-.br
-COMPONENT_INTERNET=[yn]
-.br
-COMPONENT_INVENTORYCONTROLLER=[yn]
-.br
-COMPONENT_LEASH=[yn]
-.br
-COMPONENT_MICROCONTROLLER=[yn]
+\fBCOMPONENT_DRIVE\fR=[\fByn\fR]
+.in 8
+Whether to enable kernel support for registering drive components as block devices.  This is necessary when FS_SFS=y.
+.in 6
+
+.in 6
+\fBCOMPONENT_EEPROM\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_EXPERIENCE\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_FILESYSTEM\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_GENERATOR\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_GEOLYZER\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_HOLOGRAM\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_INTERNET\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_INVENTORYCONTROLLER\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_LEASH\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_MICROCONTROLLER\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for the microcontroller component.
 
 .in 6
-COMPONENT_MODEM=[yn]
+\fBCOMPONENT_MODEM\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for the modem component.  This by itself does not do much - but all of the MODEM_* options require it.
 
 .in 6
-COMPONENT_MOTIONSENSOR=[yn]
-.br
-COMPONENT_NAVIGATION=[yn]
-.br
-COMPONENT_NETSPLITTER=[yn]
-.br
-COMPONENT_PISTON=[yn]
-.br
-COMPONENT_REDSTONE=[yn]
+\fBCOMPONENT_MOTIONSENSOR\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_NAVIGATION\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_NETSPLITTER\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_PISTON\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_REDSTONE\fR=[\fByn\fR]
 .in 8
 Whether to enable redstone card support.
 
 .in 6
-COMPONENT_ROBOT=[yn]
+\fBCOMPONENT_ROBOT\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for the robot component.  This by itself does not do anything - but all of the ROBOT_* options require it.
 
 .in 6
-COMPONENT_SIGN=[yn]
-.br
-COMPONENT_TANKCONTROLLER=[yn]
-.br
-COMPONENT_TRACTORBEAM=[yn]
-.br
-COMPONENT_TRANSPOSER=[yn]
-.br
-COMPONENT_TUNNEL=[yn]
-.br
-COMPONENT_WORLDSENSOR=[yn]
+\fBCOMPONENT_SIGN\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_TANKCONTROLLER\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_TRACTORBEAM\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_TRANSPOSER\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_TUNNEL\fR=[\fByn\fR]
+.in 6
+\fBCOMPONENT_WORLDSENSOR\fR=[\fByn\fR]
 
 .in 6
-COMPONENT_CARDDOCK=[yn]
+\fBCOMPONENT_CARDDOCK\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for automatically registering components in Computeronics card docks.  This option is not very expensive for code size.
 
 .in 6
-PREEMPT_MODE=<good|fast|none>
+\fBPREEMPT_MODE\fR=<good|fast|none>
 .in 8
 How often to insert forced yields into loaded Lua code:
 .in 10
 none - don't insert any, disable this functionality
+.in 10
 fast - force a yield every 0.1s
+.in 10
 good - force a yield every time the yield function is called
 
 .in 6
-EXEC_CLE=[yn]
+\fBEXEC_CLE\fR=[\fByn\fR]
 .in 8
 Whether to enable support for the Cynosure Lua Executable format.  It is highly recommended that you enable this option.
 
 .in 6
-EXEC_SHEBANG=[yn]
+\fBEXEC_SHEBANG\fR=[\fByn\fR]
 .in 8
 Whether to enable kernel support for scripts starting with a shebang (#!/path/to/interpreter).
 
 .in 6
-FS_SFS=[yn]
+\fBFS_SFS\fR=[\fByn\fR]
 .in 8
 Enable or disable the Simple File System driver.  When this option is enabled, the resulting kernel will be able to mount and interact with SFS-formatted volumes.  See fs/simplefs.txt for details on the filesystem.
 
 .in 6
-FS_MANAGED=[yn]
+\fBFS_MANAGED\fR=[\fByn\fR]
 .in 8
 Enabled or disable the managed filesystem driver.
 
 .in 6
-SCHEME_MISC=[yn]
+\fBSCHEME_MISC\fR=[\fByn\fR]
 .in 8
 Whether the kernel should support defining schemes from userspace.  When this option is enabled, user programs can register a scheme through the user: scheme.
 
 .in 6
-SCHEME_EXEC=[yn]
+\fBSCHEME_EXEC\fR=[\fByn\fR]
 .in 8
 Whether the kernel should support defining custom executable formats from userspace.  When this option is enabled, user programs can register custom executable format foo by writing specially formatted data to exec://foo, and read all defined formats by listing the files under exec:/.
 
 .in 6
-SCHEME_HTTP=[yn]
+\fBSCHEME_HTTP\fR=[\fByn\fR]
 .in 8
 Whether to include the http: and https: schemes.  These use OpenComputers' Internet Card component to open a HTTP connection.
 
 .in 6
-SCHEME_TCP=[yn]
+\fBSCHEME_TCP\fR=[\fByn\fR]
 .in 8
 Whether to include the tcp: scheme.  This uses the Internet Card to maintain a TCP socket.
 
 .in 6
-SCHEME_COMPONENT=[yn]
+\fBSCHEME_COMPONENT\fR=[\fByn\fR]
 .in 8
 Whether to include the component: scheme.  This allows user programs to access raw components by first opening a component under this scheme, then using the invoke() system call with the file descriptor returned from that operation.
 
 .in 6
-LANGUAGE=<english|...>
+\fBLANGUAGE\fR=<\fBenglish\fR|\fB...\fR>
 .in 8
 Sets the language to use for kernel error messages.
-.zY

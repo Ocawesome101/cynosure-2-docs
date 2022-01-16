@@ -1,0 +1,129 @@
+\" This file is formatted with the GNU Roff formatting scheme.
+\" View with "groff -T ascii syscalls.2"
+.color
+.defcolor r rgb #FF0000
+.defcolor g rgb #00FF00
+.defcolor b rgb #0000FF
+.defcolor m rgb #FF00FF
+.ce
+\fBSystem Calls\fR
+
+.in 4
+This document describes all of Cynosure 2's system calls and their functions.
+
+
+.in 4
+\fB\mbopen\m[default]\fR(\fBurl\fR:\fB\mrstring\m[default]\fR,
+\fBmode\fR:\fB\mmnumber\m[default]\fR): \fBfd\fR:\fB\mmnumber\m[default]\fR
+.in 6
+Tries to open the provided URL.  On success, returns a file descriptor.  The
+\fB\mmmode\m[default]\fR argument should be an OR of the following values for
+specifying how to open the file:
+
+.in 10
+\fBMODE_RDONLY\fR = \fB\mm0x2000\m[default]
+.br
+MODE_WRONLY\fR = \fB\mm0x1000\m[default]
+.br
+MODE_RDWR\fR   = \fB\mm0x800\m[default]
+.br
+MODE_APPEND\fR = \fB\mm0x400\m[default]
+.br
+MODE_CREAT\fR  = \fB\mm0x200\m[default]\fR
+
+.in 6
+and the following arguments for file permissions if \fB\mmMODE_CREAT\m[default]\fR
+is set:
+
+.in 10
+\fBPERM_UR\fR = \fB\mm0x100\m[default]
+.br
+PERM_UW\fR = \fB\mm0x80\m[default]
+.br
+PERM_UX\fR = \fB\mm0x40\m[default]
+.br
+PERM_GR\fR = \fB\mm0x20\m[default]
+.br
+PERM_GW\fR = \fB\mm0x10\m[default]
+.br
+PERM_GX\fR = \fB\mm0x8\m[default]
+.br
+PERM_OR\fR = \fB\mm0x4\m[default]
+.br
+PERM_OW\fR = \fB\mm0x2\m[default]
+.br
+PERM_OX\fR = \fB\mm0x1\m[default]\fR
+
+.in 4
+\fB\mbopendir\m[default]\fR(\fBurl\fR:\fB\mrstring\m[default]\fR):
+\fBdirfd\fR:\fB\mmnumber\m[default]\fR
+.in 6
+Opens a directory for reading.  Use \fB\mbreaddir\m[default]\fR to read file names
+from this descriptor and \fB\mbclose\m[default]\fR to close it.
+
+.in 4
+\fB\mbread\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR, \fBn\fR:\fB\mmnumber\m[default]\fR):
+\fBdata\fR:\fB\mrstring\m[default]\fR
+.in 6
+Reads up to \fB\mmn\m[default]\fR bytes of data from the given file descriptor.
+
+.in 4
+\fB\mbreaddir\m[default]\fB(\fBdirfd\fR:\fB\mmnumber\m[default]\fR):
+\fBdirent\fR:\fB\mgtable\m[default]\fR
+.in 6
+Reads a directory entry from a directory descriptor and returns:
+
+.in 10
+\fB\mg{\m[default]
+.in 12
+inode = \mmnumber\m[default],
+.in 12
+name = \mrstring
+.in 10
+\mg}\m[default]\fR
+
+.in 4
+\fB\mbwrite\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR, \fBdata\fR:\fB\mrstring\m[default]\fR)
+.in 6
+Writes the provided data to the given file descriptor.
+
+.in 4
+\fB\mbseek\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR, \fBwhence\fR:\fB\mrstring\m[default]\fR[,
+\fBoffset\fR:\fB\mmnumber\m[default]\fR]): \fBoffset\fR:\fB\mmnumber\m[default]\fR
+.in 6
+Changes the read/write offset for the provided file descriptor.  Returns the
+new offset.
+
+.in 4
+\fB\mbclose\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR)
+.in 6
+Closes an open file descriptor.
+
+.in 4
+\fB\mbinvoke\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR,
+\fBmethod\fR:\fB\mrstring\m[default]\fR, \fB...\fR): \fB...\fR
+.in 6
+Invokes a component call using the specified file descriptor.  Otherwise this
+behaves exactly like the \fB\mbcomponent.invoke\m[default]\fR function.
+
+
+.in 4
+\fB\mbfork\m[default]\fR(): \fBpid\fR:\fB\mmnumber\m[default]\fR
+.in 6
+A rather fragile system call.  "Forks" the current process;  the spawned child
+process will only execute code until the end of the block from which
+\fB\mbfork\m[default]\fR is called.  This \fB\mbfork\m[default]\fR requires direct access to
+the code from which it is called, and therefore must be called from code stored
+in and executed from a file.  Because of this, it will not work from code that
+has been loaded with \fB\mbload\m[default]\fR, unless the chunk name is correct.
+\fB\mbfork\m[default]\fR returns the PID of the child process to the parent process,
+\fB\mm0\m[default]\fR to the child process, and \fB\mmnil\m[default]\fR with an error message
+if it fails.
+
+.in 4
+\fB\mbexecve\m[default]\fR(\fBfile\fR:\fB\mrstring\m[default]\fR,
+\fBargs\fR:\fB\mgtable\m[default]\fR[, \fBenv\fR:\fB\mgtable\m[default]\fR])
+.in 6
+Replaces the current process's coroutine with the result of loading the file
+argument.  Will pass the provided args and set the environment to
+\fB\mgenv\m[default]\fR.
