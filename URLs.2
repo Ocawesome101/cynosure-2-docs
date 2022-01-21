@@ -1,0 +1,80 @@
+.color
+.defcolor r rgb #FF0000
+.defcolor b rgb #0000FF
+.defcolor y rgb #FFFF00
+.ce
+\fBURLs\fR
+
+.in 4
+One of the core concepts of Cynosure 2 is \fBeverything is a URL\fR.  This document lists all the built-in schemes.
+
+.in 6
+\fBfile:\fR
+.in 8
+The most important scheme.  All file access is done through this scheme.  If no scheme is specified in the call to \fB\mbopen\m[default]\fR, this is the scheme that is used.
+
+.in 6
+\fBkernel:\fR
+.in 8
+Used to retrieve some information about the kernel (e.g. version, uptime).
+
+.in 6
+\fBblock:\fR
+.in 8
+Stores all registered block devices.
+
+.in 6
+\fBtty:\fR
+.in 8
+All registered TTY devices are under this scheme.
+
+
+.ce
+\fBOptional Schemes\fR
+
+.in 4
+These schemes are included by configuration options.
+
+.in 6
+\fBcomponent:\fR
+.in 8
+All components are under this scheme.  They can be opened with \fBcomponent\fR://\fBaddress\fR.
+
+.in 6
+\fBexec:\fR
+.in 8
+Used to register custom executable formats.  To register \fBvelx\fR files:
+.in 10
+- Call \fB\mbopen\m[default]\fR(\fB\mr"exec://velx"\m[default]\fR)
+.in 10
+- Call \fB\mbioctl\m[default]\fR with the returned file descriptor to change some attributes of the executable:
+.in 12
+* \fB\mr"setMode"\m[default]\fR with a boolean value specifying whether to determine the file type by extension or by a magic number.
+* \fB\mr"setInterpreter"\m[default]\fR with the path to the executable's interpreter.
+
+.in 6
+\fBtcp:\fR
+.in 8
+Used to open TCP connections.
+
+.in 6
+\fBhttp:\fR, \fBhttps:\fR
+.in 8
+Used to open HTTP and HTTPS connections.
+
+.in 6
+\fBcftp:\fR
+.in 8
+Used to wrap other URLs in the Cynosure File Transfer Protocol.  To wrap a \fBtcp:\fR connection with this:
+.in 12
+\fBcftp://\mytcp://example.com\m[default]\fR
+
+.in 6
+\fBmtel:\fR
+.in 8
+Open Minitel sockets.
+
+.in 6
+\fBgert:\fR
+.in 8
+Open GERTi sockets.

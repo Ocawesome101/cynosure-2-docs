@@ -18,7 +18,7 @@ This tree contains a set of documentation for the Cynosure kernel's second itera
 Cynosure 2 is the second iteration of the Cynosure kernel.  It features a more posix-like kernel API, with even stricter distinctions between kernel and user space.  It requires that all filesystem drivers have permissions support, and emulates this feature on managed filesystems where it is not present.
 
 .in 4
-The Cynosure 2 kernel differentiates itself from the original Cynosure, and most other Unix-likes, by abstracting everything as URL rather than as a file (see `URLs.txt').
+The Cynosure 2 kernel differentiates itself from the original Cynosure, and most other Unix-likes, by abstracting everything as URL rather than as a file (see `URLs.2').
  
 .ce
 \fBBuild Configuration\fR
@@ -143,9 +143,7 @@ Whether to enable kernel support for automatically registering components in Com
 How often to insert forced yields into loaded Lua code:
 .in 10
 none - don't insert any, disable this functionality
-.in 10
 fast - force a yield every 0.1s
-.in 10
 good - force a yield every time the yield function is called
 
 .in 6
@@ -179,6 +177,11 @@ Whether the kernel should support defining schemes from userspace.  When this op
 Whether the kernel should support defining custom executable formats from userspace.  When this option is enabled, user programs can register custom executable format foo by writing specially formatted data to exec://foo, and read all defined formats by listing the files under exec:/.
 
 .in 6
+\fBSCHEME_CONFIG\fR
+.in 8
+Whether the kernel should provide a list of enabled features through the kernel://config file.  This will effectively return the contents of \fB.config\fR.
+
+.in 6
 \fBSCHEME_HTTP\fR=[\fByn\fR]
 .in 8
 Whether to include the http: and https: schemes.  These use OpenComputers' Internet Card component to open a HTTP connection.
@@ -192,6 +195,21 @@ Whether to include the tcp: scheme.  This uses the Internet Card to maintain a T
 \fBSCHEME_COMPONENT\fR=[\fByn\fR]
 .in 8
 Whether to include the component: scheme.  This allows user programs to access raw components by first opening a component under this scheme, then using the invoke() system call with the file descriptor returned from that operation.
+
+.in 6
+\fBPROTOCOL_CFTP\fR=[\fByn\fR]
+.in 8
+Whether to include support for the Cynosure File Transfer Protocol.  This is a FTP scheme that works on top of any socket.  It is useful for abstraction of differences between protocols (i.e. you can use this over TCP, Minitel, GERT...).
+
+.in 6
+\fBPROTOCOL_MTEL\fR=[\fByn\fR]
+.in 8
+Whether to include support for the Minitel networking protocol.  This adds the mtel: scheme for opening and using Minitel sockets.
+
+.in 6
+\fBPROTOCOL_GERT\fR=[\fByn\fR]
+.in 8
+Whether to include support for the GERTi networking protocol.  This adds the gert: scheme for opening and using GERTi sockets.
 
 .in 6
 \fBLANGUAGE\fR=<\fBenglish\fR|\fB...\fR>

@@ -106,24 +106,44 @@ Closes an open file descriptor.
 Invokes a component call using the specified file descriptor.  Otherwise this
 behaves exactly like the \fB\mbcomponent.invoke\m[default]\fR function.
 
+.in 4
+\fB\mbioctl\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR,
+\fBrequest\fR:\fB\mrstring\m[default]\fR, \fB...\fR): \fB...\fR
+.in 6
+Adjusts a file descriptor's properties.  Results are protocol-specific.
 
 .in 4
-\fB\mbfork\m[default]\fR(): \fBpid\fR:\fB\mmnumber\m[default]\fR
+\fB\mbfork\m[default]\fR(\fBfunc\fR:\fB\mbfunction\m[default]\fR):
+\fBpid\fR:\fB\mmnumber\m[default]\fR
 .in 6
-A rather fragile system call.  "Forks" the current process;  the spawned child
-process will only execute code until the end of the block from which
-\fB\mbfork\m[default]\fR is called.  This \fB\mbfork\m[default]\fR requires direct access to
-the code from which it is called, and therefore must be called from code stored
-in and executed from a file.  Because of this, it will not work from code that
-has been loaded with \fB\mbload\m[default]\fR, unless the chunk name is correct.
-\fB\mbfork\m[default]\fR returns the PID of the child process to the parent process,
-\fB\mm0\m[default]\fR to the child process, and \fB\mmnil\m[default]\fR with an error message
-if it fails.
+Creates a new process from the provided \fB\mbfunc\m[default]\fR, whose
+attributes are inherited from the current process.
 
 .in 4
 \fB\mbexecve\m[default]\fR(\fBfile\fR:\fB\mrstring\m[default]\fR,
 \fBargs\fR:\fB\mgtable\m[default]\fR[, \fBenv\fR:\fB\mgtable\m[default]\fR])
 .in 6
 Replaces the current process's coroutine with the result of loading the file
-argument.  Will pass the provided args and set the environment to
-\fB\mgenv\m[default]\fR.
+argument.  Will pass the provided \fB\mgargs\m[default]\fR and set the
+environment to \fB\mgenv\m[default]\fR.
+
+
+.in 4
+\fB\mbgetuid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
+.in 6
+Returns the current process's user ID.
+
+.in 4
+\fB\mbgetgid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
+.in 6
+Returns the current process's group ID.
+
+.in 4
+\fB\mbsetuid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
+.in 6
+Attempts to change the current process's UID.
+
+.in 4
+\fB\mbsetgid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
+.in 6
+Attempts to change the current process's group ID.
