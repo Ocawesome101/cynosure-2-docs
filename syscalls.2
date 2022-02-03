@@ -1,5 +1,5 @@
 \" This file is formatted with the GNU Roff formatting scheme.
-\" View with "groff -T ascii syscalls.2"
+\" View with "man -l syscalls.2"
 .color
 .defcolor r rgb #FF0000
 .defcolor g rgb #00FF00
@@ -129,21 +129,21 @@ environment to \fB\mgenv\m[default]\fR.
 
 
 .in 4
-\fB\mbgetuid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
+\fB\mbget[e]uid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
 .in 6
-Returns the current process's user ID.
+Returns the current process's [effective|real] user ID.
 
 .in 4
-\fB\mbgetgid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
+\fB\mbget[e]gid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
 .in 6
-Returns the current process's group ID.
+Returns the current process's [effective|real] group ID.
 
 .in 4
-\fB\mbsetuid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
+\fB\mbset[e]uid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
 .in 6
-Attempts to change the current process's UID.
+Attempts to change the current process's [effective|real] user ID.
 
 .in 4
-\fB\mbsetgid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
+\fB\mbset[e]gid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
 .in 6
-Attempts to change the current process's group ID.
+Attempts to change the current process's [effective|real] group ID.

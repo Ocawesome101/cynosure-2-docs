@@ -1,5 +1,5 @@
 \" This document is formatted with the GNU Roff formatting scheme.
-\" View with "groff -T ascii readme.2"
+\" View with "man -l readme.2"
 .color
 .defcolor r rgb #FF0000
 .defcolor g rgb #00FF00
@@ -11,6 +11,7 @@
 .in 4
 This tree contains a set of documentation for the Cynosure kernel's second iteration.
 
+.in 0
 .ce
 \fBSummary\fR
 
@@ -112,7 +113,7 @@ Whether to enable kernel support for the modem component.  This by itself does n
 .in 6
 \fBCOMPONENT_REDSTONE\fR=[\fByn\fR]
 .in 8
-Whether to enable redstone card support.
+Whether to enable redstone card support.  The RS_* options require this.
 
 .in 6
 \fBCOMPONENT_ROBOT\fR=[\fByn\fR]
@@ -129,6 +130,9 @@ Whether to enable kernel support for the robot component.  This by itself does n
 \fBCOMPONENT_TRANSPOSER\fR=[\fByn\fR]
 .in 6
 \fBCOMPONENT_TUNNEL\fR=[\fByn\fR]
+.in 8
+Whether to enable kernel support for using linked cards.
+
 .in 6
 \fBCOMPONENT_WORLDSENSOR\fR=[\fByn\fR]
 
@@ -143,7 +147,9 @@ Whether to enable kernel support for automatically registering components in Com
 How often to insert forced yields into loaded Lua code:
 .in 10
 none - don't insert any, disable this functionality
+.in 10
 fast - force a yield every 0.1s
+.in 10
 good - force a yield every time the yield function is called
 
 .in 6
@@ -182,6 +188,11 @@ Whether the kernel should support defining custom executable formats from usersp
 Whether the kernel should provide a list of enabled features through the kernel://config file.  This will effectively return the contents of \fB.config\fR.
 
 .in 6
+\fBSCHEME_EVENT\fR=[\fByn\fR]
+.in 8
+Whether the kernel should provide easy registration of userspace signal handlers.  If this is enabled, user programs can open \fBproc://self/handlers\fR and register handlers on the returned file descriptor with an \fB\mbioctl\m[default]\fR call.
+
+.in 6
 \fBSCHEME_HTTP\fR=[\fByn\fR]
 .in 8
 Whether to include the http: and https: schemes.  These use OpenComputers' Internet Card component to open a HTTP connection.
@@ -212,6 +223,16 @@ Whether to include support for the Minitel networking protocol.  This adds the m
 Whether to include support for the GERTi networking protocol.  This adds the gert: scheme for opening and using GERTi sockets.
 
 .in 6
-\fBLANGUAGE\fR=<\fBenglish\fR|\fB...\fR>
+\fBTTY_ENABLE_GPU\fR=[\fByn\fR]
 .in 8
-Sets the language to use for kernel error messages.
+Enables support for some extra GPU control codes in the VT100 emulator.  This feature allows much faster terminal graphics operations but increases kernel size and is nonstandard.
+
+.in 6
+\fBBIT32\fR=[\fByn\fR]
+.in 8
+Enables emulation of the bit32 library.  The resulting kernel will not run on Lua 5.2.
+
+.in 6
+\fBBUFFER_SIZE\fR=\fBnumber\fR
+.in 8
+The maximum size of kernel stream buffers.

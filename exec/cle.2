@@ -1,0 +1,58 @@
+\" This file is formatted with GNU Roff.
+\" View it with "man -l cle.2"
+.color
+.defcolor r rgb #FF0000
+.defcolor g rgb #00FF00
+.defcolor d rgb #AAAAAA
+.defcolor w rgb #FFFFFF
+.defcolor m rgb #FF00FF
+.defcolor b rgb #0000FF
+.ce
+Cynosure Lua Executables
+
+.in 4
+This document describes the Cynosure Lua Executable format.  It is similar to
+the intially planned CYX format, but has some minor improvements.
+
+.in 6
+\mrstruct\mw cle_header \mg{\md
+.in 8
+\mrint\mw cle_sig\md = \mm0x636c6578\md;
+.in 8
+\mrchar\mw flags\md;
+.in 8
+\mrchar\mw nlink\md;
+.in 8
+\mrstruct\mw cle_link ...\md; \mb// repeated nlink times
+.in 6
+\mg}\md
+
+\mrstruct\mw cle_link \mg{\md
+.in 8
+\mrchar\mw length\md;
+.in 8
+\mrchar\mw name\md[\mmlength\md];
+.in 6
+\mg}\md
+
+.in 4
+The following flags are supported:
+
+.in 6
+\mwCLE_LUA53\md=\mm0x1\md
+.in 8
+Specifies that the execuable uses features exclusive to Lua 5.3.  If this is
+not set, the executable will probably still run on Lua 5.3, but it may need
+bit32.
+
+.in 6
+\mwCLE_EXEC\md=\mm0x2\md
+.in 8
+If this is set, the file is executable.  Otherwise it is a library.
+
+.in 6
+\mwCLE_STATIC\md=\mm0x4\md
+.in 8
+If set, the file is statically linked and \mwnlink\md should be \mm0\md.
+Otherwise, \mwnlink\md may still be \mm0\md, but the first \mwcle_link\md
+structure present refers to the linker needed to load the program.
