@@ -53,6 +53,5 @@ If this is set, the file is executable.  Otherwise it is a library.
 .in 6
 \mwCLE_STATIC\md=\mm0x4\md
 .in 8
-If set, the file is statically linked and \mwnlink\md should be \mm0\md.
-Otherwise, \mwnlink\md may still be \mm0\md, but the first \mwcle_link\md
-structure present refers to the linker needed to load the program.
+If set, the file is statically linked and \mwnlink\md should be \mm0\md.  There
+is no linker entry present.  Otherwise, the first \mwcle_link\md structure present refers to the linker needed to load the program regardless of \mwnlink\md's value.
