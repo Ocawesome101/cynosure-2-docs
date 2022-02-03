@@ -55,3 +55,8 @@ If this is set, the file is executable.  Otherwise it is a library.
 .in 8
 If set, the file is statically linked and \mwnlink\md should be \mm0\md.  There
 is no linker entry present.  Otherwise, the first \mwcle_link\md structure present refers to the linker needed to load the program regardless of \mwnlink\md's value.
+
+.in 4
+Immediately after the header follows the code section.
+
+It is the linker's job to load dynamic libraries and place them into the program's environment.
