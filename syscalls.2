@@ -5,6 +5,7 @@
 .defcolor g rgb #00FF00
 .defcolor b rgb #0000FF
 .defcolor m rgb #FF00FF
+.defcolor d rgb #AAAAAA
 .ce
 \fBSystem Calls\fR
 
@@ -13,137 +14,154 @@ This document describes all of Cynosure 2's system calls and their functions.
 
 
 .in 4
-\fB\mbopen\m[default]\fR(\fBurl\fR:\fB\mrstring\m[default]\fR,
-\fBmode\fR:\fB\mmnumber\m[default]\fR): \fBfd\fR:\fB\mmnumber\m[default]\fR
+\fB\mbopen\md\fR(\fBurl\fR:\fB\mrstring\md\fR,
+\fBmode\fR:\fB\mmnumber\md\fR): \fBfd\fR:\fB\mmnumber\md\fR
 .in 6
 Tries to open the provided URL.  On success, returns a file descriptor.  The
-\fB\mmmode\m[default]\fR argument should be an OR of the following values for
+\fB\mmmode\md\fR argument should be an OR of the following values for
 specifying how to open the file:
 
 .in 10
-\fBMODE_RDONLY\fR = \fB\mm0x2000\m[default]
+\fBMODE_RDONLY\fR = \fB\mm0x2000\md
 .br
-MODE_WRONLY\fR = \fB\mm0x1000\m[default]
+MODE_WRONLY\fR = \fB\mm0x1000\md
 .br
-MODE_RDWR\fR   = \fB\mm0x800\m[default]
+MODE_RDWR\fR   = \fB\mm0x800\md
 .br
-MODE_APPEND\fR = \fB\mm0x400\m[default]
+MODE_APPEND\fR = \fB\mm0x400\md
 .br
-MODE_CREAT\fR  = \fB\mm0x200\m[default]\fR
+MODE_CREAT\fR  = \fB\mm0x200\md\fR
 
 .in 6
-and the following arguments for file permissions if \fB\mmMODE_CREAT\m[default]\fR
+and the following arguments for file permissions if \fB\mmMODE_CREAT\md\fR
 is set:
 
 .in 10
-\fBPERM_UR\fR = \fB\mm0x100\m[default]
+\fBPERM_UR\fR = \fB\mm0x100\md
 .br
-PERM_UW\fR = \fB\mm0x80\m[default]
+PERM_UW\fR = \fB\mm0x80\md
 .br
-PERM_UX\fR = \fB\mm0x40\m[default]
+PERM_UX\fR = \fB\mm0x40\md
 .br
-PERM_GR\fR = \fB\mm0x20\m[default]
+PERM_GR\fR = \fB\mm0x20\md
 .br
-PERM_GW\fR = \fB\mm0x10\m[default]
+PERM_GW\fR = \fB\mm0x10\md
 .br
-PERM_GX\fR = \fB\mm0x8\m[default]
+PERM_GX\fR = \fB\mm0x8\md
 .br
-PERM_OR\fR = \fB\mm0x4\m[default]
+PERM_OR\fR = \fB\mm0x4\md
 .br
-PERM_OW\fR = \fB\mm0x2\m[default]
+PERM_OW\fR = \fB\mm0x2\md
 .br
-PERM_OX\fR = \fB\mm0x1\m[default]\fR
+PERM_OX\fR = \fB\mm0x1\md\fR
 
 .in 4
-\fB\mbopendir\m[default]\fR(\fBurl\fR:\fB\mrstring\m[default]\fR):
-\fBdirfd\fR:\fB\mmnumber\m[default]\fR
+\fB\mbopendir\md\fR(\fBurl\fR:\fB\mrstring\md\fR):
+\fBdirfd\fR:\fB\mmnumber\md\fR
 .in 6
-Opens a directory for reading.  Use \fB\mbreaddir\m[default]\fR to read file names
-from this descriptor and \fB\mbclose\m[default]\fR to close it.
+Opens a directory for reading.  Use \fB\mbreaddir\md\fR to read file names
+from this descriptor and \fB\mbclose\md\fR to close it.
 
 .in 4
-\fB\mbread\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR, \fBn\fR:\fB\mmnumber\m[default]\fR):
-\fBdata\fR:\fB\mrstring\m[default]\fR
+\fB\mbread\md\fR(\fBfd\fR:\fB\mmnumber\md\fR, \fBn\fR:\fB\mmnumber\md\fR):
+\fBdata\fR:\fB\mrstring\md\fR
 .in 6
-Reads up to \fB\mmn\m[default]\fR bytes of data from the given file descriptor.
+Reads up to \fB\mmn\md\fR bytes of data from the given file descriptor.
 
 .in 4
-\fB\mbreaddir\m[default]\fB(\fBdirfd\fR:\fB\mmnumber\m[default]\fR):
-\fBdirent\fR:\fB\mgtable\m[default]\fR
+\fB\mbreaddir\md\fB(\fBdirfd\fR:\fB\mmnumber\md\fR):
+\fBdirent\fR:\fB\mgtable\md\fR
 .in 6
 Reads a directory entry from a directory descriptor and returns:
 
 .in 10
-\fB\mg{\m[default]
+\fB\mg{\md
 .in 12
-inode = \mmnumber\m[default],
+inode = \mmnumber\md,
 .in 12
 name = \mrstring
 .in 10
-\mg}\m[default]\fR
+\mg}\md\fR
 
 .in 4
-\fB\mbwrite\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR, \fBdata\fR:\fB\mrstring\m[default]\fR)
+\fB\mbwrite\md\fR(\fBfd\fR:\fB\mmnumber\md\fR, \fBdata\fR:\fB\mrstring\md\fR)
 .in 6
 Writes the provided data to the given file descriptor.
 
 .in 4
-\fB\mbseek\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR, \fBwhence\fR:\fB\mrstring\m[default]\fR[,
-\fBoffset\fR:\fB\mmnumber\m[default]\fR]): \fBoffset\fR:\fB\mmnumber\m[default]\fR
+\fB\mbseek\md\fR(\fBfd\fR:\fB\mmnumber\md\fR, \fBwhence\fR:\fB\mrstring\md\fR[,
+\fBoffset\fR:\fB\mmnumber\md\fR]): \fBoffset\fR:\fB\mmnumber\md\fR
 .in 6
 Changes the read/write offset for the provided file descriptor.  Returns the
 new offset.
 
 .in 4
-\fB\mbclose\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR)
+\fB\mbclose\md\fR(\fBfd\fR:\fB\mmnumber\md\fR)
 .in 6
 Closes an open file descriptor.
 
 .in 4
-\fB\mbinvoke\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR,
-\fBmethod\fR:\fB\mrstring\m[default]\fR, \fB...\fR): \fB...\fR
+\fB\mbmkdir\md\fR(\fBpath\fR:\fB\mrstring\md\fR)
 .in 6
-Invokes a component call using the specified file descriptor.  Otherwise this
-behaves exactly like the \fB\mbcomponent.invoke\m[default]\fR function.
+Create a directory.  Will not automatically create parents of that directory.
 
 .in 4
-\fB\mbioctl\m[default]\fR(\fBfd\fR:\fB\mmnumber\m[default]\fR,
-\fBrequest\fR:\fB\mrstring\m[default]\fR, \fB...\fR): \fB...\fR
+\fB\mblink\md\fR(\fBsource\fR:\fB\mrstring\md\fR, \fBdest\fR:\fB\mrstring\md\fR)
+.in 6
+Link \fB\mrsource\md\fR to \fB\mrdest\md\fR.
+
+.in 4
+\fB\mbunlink\md\fR(\fBpath\fR:\fB\mrstring\md\fR)
+.in 6
+Remove a reference to a file.  When the reference count reaches zero, the file
+is removed.
+
+
+.in 4
+\fB\mbinvoke\md\fR(\fBfd\fR:\fB\mmnumber\md\fR,
+\fBmethod\fR:\fB\mrstring\md\fR, \fB...\fR): \fB...\fR
+.in 6
+Invokes a component call using the specified file descriptor.  Otherwise this
+behaves exactly like the \fB\mbcomponent.invoke\md\fR function.
+
+.in 4
+\fB\mbioctl\md\fR(\fBfd\fR:\fB\mmnumber\md\fR,
+\fBrequest\fR:\fB\mrstring\md\fR, \fB...\fR): \fB...\fR
 .in 6
 Adjusts a file descriptor's properties.  Results are protocol-specific.
 
 .in 4
-\fB\mbfork\m[default]\fR(\fBfunc\fR:\fB\mbfunction\m[default]\fR):
-\fBpid\fR:\fB\mmnumber\m[default]\fR
+\fB\mbfork\md\fR(\fBfunc\fR:\fB\mbfunction\md\fR):
+\fBpid\fR:\fB\mmnumber\md\fR
 .in 6
-Creates a new process from the provided \fB\mbfunc\m[default]\fR, whose
+Creates a new process from the provided \fB\mbfunc\md\fR, whose
 attributes are inherited from the current process.
 
 .in 4
-\fB\mbexecve\m[default]\fR(\fBfile\fR:\fB\mrstring\m[default]\fR,
-\fBargs\fR:\fB\mgtable\m[default]\fR[, \fBenv\fR:\fB\mgtable\m[default]\fR])
+\fB\mbexecve\md\fR(\fBfile\fR:\fB\mrstring\md\fR,
+\fBargs\fR:\fB\mgtable\md\fR[, \fBenv\fR:\fB\mgtable\md\fR])
 .in 6
 Replaces the current process's coroutine with the result of loading the file
-argument.  Will pass the provided \fB\mgargs\m[default]\fR and set the
-environment to \fB\mgenv\m[default]\fR.
+argument.  Will pass the provided \fB\mgargs\md\fR and set the
+environment to \fB\mgenv\md\fR.
 
 
 .in 4
-\fB\mbget[e]uid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
+\fB\mbget[e]uid\md\fR(): \fBuid\fR:\fB\mmnumber\md\fR
 .in 6
 Returns the current process's [effective|real] user ID.
 
 .in 4
-\fB\mbget[e]gid\m[default]\fR(): \fBuid\fR:\fB\mmnumber\m[default]\fR
+\fB\mbget[e]gid\md\fR(): \fBuid\fR:\fB\mmnumber\md\fR
 .in 6
 Returns the current process's [effective|real] group ID.
 
 .in 4
-\fB\mbset[e]uid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
+\fB\mbset[e]uid\md\fR(\fBuid\fR:\fB\mmnumber\md\fR)
 .in 6
 Attempts to change the current process's [effective|real] user ID.
 
 .in 4
-\fB\mbset[e]gid\m[default]\fR(\fBuid\fR:\fB\mmnumber\m[default]\fR)
+\fB\mbset[e]gid\md\fR(\fBuid\fR:\fB\mmnumber\md\fR)
 .in 6
 Attempts to change the current process's [effective|real] group ID.
