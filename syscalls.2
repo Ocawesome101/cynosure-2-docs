@@ -63,13 +63,13 @@ Opens a directory for reading.  Use \fB\mbreaddir\md\fR to read file names
 from this descriptor and \fB\mbclose\md\fR to close it.
 
 .in 4
-\fB\mbread\md\fR(\fBfd\fR:\fB\mmnumber\md\fR, \fBn\fR:\fB\mmnumber\md\fR):
-\fBdata\fR:\fB\mrstring\md\fR
+\fB\mbread\md\fR(\fBfd\fR:\fB\mmnumber\md\fR, \fBfmt\fR:\fB\mmnumber\md\fR or
+\fB\mrstring\md\fR): \fBdata\fR:\fB\mrstring\md\fR
 .in 6
 Reads up to \fB\mmn\md\fR bytes of data from the given file descriptor.
 
 .in 4
-\fB\mbreaddir\md\fB(\fBdirfd\fR:\fB\mmnumber\md\fR):
+\fB\mbreaddir\md\fR(\fBdirfd\fR:\fB\mmnumber\md\fR):
 \fBdirent\fR:\fB\mgtable\md\fR
 .in 6
 Reads a directory entry from a directory descriptor and returns:
@@ -94,6 +94,11 @@ Writes the provided data to the given file descriptor.
 .in 6
 Changes the read/write offset for the provided file descriptor.  Returns the
 new offset.
+
+.in 4
+\fB\mbflush\md\fR(\fBfd\fR:\fB\mmnumber\md\fR)
+.in 6
+Flush any buffered data on the given file descriptor.
 
 .in 4
 \fB\mbclose\md\fR(\fBfd\fR:\fB\mmnumber\md\fR)
