@@ -121,6 +121,36 @@ Link \fB\mrsource\md\fR to \fB\mrdest\md\fR.
 Remove a reference to a file.  When the reference count reaches zero, the file
 is removed.
 
+.in 4
+\fB\mbstat\md\fR(\fBpath\fR:\fB\mrstring\md\fR): \fB\mgtable\md\fR
+.in 6
+Returns a table of information about a file, with the following fields.  See
+Linux's \fBstat\fR(\fB2\fR) for the general idea.
+
+.in 10
+\fB\mg{
+.in 12
+\mddev = \mmnumber\md,
+.in 12
+\mdino = \mmnumber\md,
+.in 12
+\mdmode = \mmnumber\md,
+.in 12
+\mdnlink = \mmnumber\md,
+.in 12
+\mduid = \mmnumber\md,
+.in 12
+\mdgid = \mmnumber\md,
+.in 12
+\mdrdev = \mmnumber\md,
+.in 12
+\mdsize = \mmnumber\md,
+.in 12
+\mdblksize = \mmnumber\md,
+.in 12
+\mdblocks = \mmnumber\md,
+.in 10
+\mg}\md\fR
 
 .in 4
 \fB\mbinvoke\md\fR(\fBfd\fR:\fB\mmnumber\md\fR,
