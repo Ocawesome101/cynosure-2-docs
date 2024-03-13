@@ -16,7 +16,7 @@ All numbers are little-endian.
 
 .in 4
 The first sector of a SFS-formatted disk contains the superblock.  This contains
- a lilttle bit of data about the filesystem.
+ a little bit of data about the filesystem.
 
 .in 6
 \fB\mrstruct\m[default] Superblock \mg{
@@ -84,7 +84,7 @@ long and contains entries in the following format:
 .in 8
 \mruint16_t \m[default]gid;
 .in 8
-\mrchar \m[default]fname[\mm30\m[default]];
+\mrchar \m[default]fname[\mm64\m[default]];
 .in 6
 \mg}\m[default]\fR
 
@@ -114,9 +114,9 @@ first entry in that listing.  The \fBparent\fR field indicates the parent direct
 ory's index in the Namelist.
 
 .in 4
-Since the \fBNamelist_entry\fR structure is \fB\mm64\m[default]\fR bytes long, f
-inding a file at an index in the Namelist is simple: multiply its index by \fB\m
-m64\m[default]\fR and read the \fB\mm64\m[default]\fR bytes at that offset.
+Since the \fBNamelist_entry\fR structure is \fB\mm128\m[default]\fR bytes long, 
+finding a file at an index in the Namelist is simple: multiply its index by \fB\
+mm128\m[default]\fR and read the \fB\mm128\m[default]\fR bytes at that offset.
 
 .in 4
 This is a fairly slow implementation of a file tree, and driver authors will pro
@@ -126,7 +126,7 @@ bably want to cache as much of this tree as possible for speed reasons.
 When the Namelist is full, no more files can be allocated.
 
 .in 4
-A 4KB Namelist holds 64 files.  A 64KB Namelist holds 1024 files.
+A 4KB Namelist holds 32 files.  A 64KB Namelist holds 512 files.
 
 .in 4
 Each file datablock holds (Superblock.blocksize - 3) bytes of data followed by a
@@ -141,7 +141,7 @@ The following are some suggested disk layouts for certain disk sizes:
 .in 8
 1 KB blocks
 .in 8
-64 KB Namelist (1024 files)
+64 KB Namelist (512 files)
 .in 8
 64-byte Blockmap (512 blocks)
 .in 8
@@ -152,7 +152,7 @@ Total overhead 64*1025=65600 bytes
 .in 8
 1 KB blocks
 .in 8
-128 KB Namelist (2048 files)
+128 KB Namelist (1024 files)
 .in 8
 128-byte Blockmap (1024 blocks)
 .in 8
@@ -163,64 +163,53 @@ Total overhead 128*1025=131200 bytes
 .in 8
 1 KB blocks
 .in 8
-128 KB Namelist (2048 files)
+256 KB Namelist (2048 files)
 .in 8
 256-byte Blockmap (2048 blocks)
 .in 8
-Total overhead 128*1026=131328 bytes
+Total overhead 256*1025=262400 bytes
   
 .in 6
 4 MB total (OpenComputers T3 hard disk):
 .in 8
 1 KB blocks
 .in 8
-192 KB Namelist (3072 files)
+512 KB Namelist (4096 files)
 .in 8
 512-byte Blockmap (4096 blocks)
 .in 8
-Total overhead 192*1024+512=197120 bytes
+Total overhead 512*1025=524800 bytes
   
 .in 6
 16 MB total:
 .in 8
 1 KB blocks
 .in 8
-512 KB Namelist (8192 files)
+1 MB Namelist (8192 files)
 .in 8
 2 KB Blockmap (16384 blocks)
 .in 8
-Total overhead 514*1024=526336 bytes
+Total overhead 1024*1024+2048=1050624 bytes
   
 .in 6
 64 MB total (maximum size with 1KB blocks):
 .in 8
 1 KB blocks
 .in 8
-1 MB Namelist (16384 files)
+2 MB Namelist (16384 files)
 .in 8
 8 KB Blockmap (65536 blocks)
 .in 8
-Total overhead 1MB+8KB
+Total overhead 2MB+8KB
   
 .in 6
 128 MB total (maximum size with 2KB blocks):
 .in 8
 2 KB blocks
 .in 8
-2 MB Namelist (32768 files)
+4 MB Namelist (32768 files)
 .in 8
 16 KB Blockmap (131072 blocks)
 .in 8
-Total overhead 2MB+16KB
+Total overhead 4MB+16KB
 .in 4
-
-.in 6
-4 GB total (maximum size)
-.in 8
-64 KB blocks
-.in 8
-16 MB Namelist (262144 files)
-.in 8
-8 KB Blockmap (65536 blocks)
-.in 8
-Total overhead 16MB+8KB
